@@ -1,0 +1,179 @@
+Application Details: AIT 69990 - MCOE Teamsite
+This application uses an Open Text product to create marketing website content and relies on the OpenDeploy tool for content publishing. The data involved is non-critical, public, externally developed/hosted, and internally facing. Fewer than 100 internal or vendor users have access.
+
+Executive Summary: MCOE Teamsite is developed by Open Text Inc. for marketing content creation and uses OpenDeploy for content publishing. There are five internal P3 ADSF findings against the application, involving Open URL Redirect, Reflected XSS, Server-Side Template Injection, and Server-Side Request Forgery.
+
+Due to extensive regression testing requirements, the vendor (Open Text Inc.) cannot provide fixes for four of these issues until late Q4 2024. Consequently, closure of these P3 findings will not occur until Q1 2025.
+
+Current Mitigating Controls:
+
+1. Filter Network Traffic
+
+
+2. Limit Access to Resources Over the Network (fewer than 100 internal/vendor users)
+
+
+3. Restrict Web-Based Content (WAF at CDN)
+
+
+4. Bank Proxy for Internal Users
+
+
+5. CrowdStrike for Internal Users
+
+
+6. Trellix (McAfee Antivirus) for Internal Users
+
+
+7. TrendMicro Services on vendor side (BM5 VMs that monitor, detect, and respond to threats on host servers)
+
+
+
+Current Compensating Controls:
+
+1. Enhanced Logging and Alert Monitoring (SPLUNK)
+
+
+
+Suggested Improvements to Existing Controls:
+
+Ensure network traffic filtering includes IP reputation checks, geoblocking (if applicable), and rate-limiting.
+
+Consider strict role-based or IP-based access controls for the limited user base.
+
+Configure the WAF to specifically detect and block known URL redirect, XSS, and SSRF patterns.
+
+Confirm that endpoint detection (CrowdStrike/Trellix) is centrally monitored and updated.
+
+Verify that TrendMicro services on vendor-managed VMs meet corporate security standards and are consistently patched.
+
+Enable real-time alerts in SPLUNK for suspicious activities or repeated attack patterns, ensuring logs are retained for forensic purposes.
+
+
+Risk Summary and Mitigating/Compensating Controls: The five P3 findings require code fixes from Open Text Inc. Because the user base is small (fewer than 100 internal/vendor users), overall risk is considered minimal. However, the findings cannot be closed until the vendor delivers patches in Q4 2024. Below is a summary of each ADSF issue with corresponding controls:
+
+1. ADSF (989182): Open URL Redirect (Fix in 23.4; not yet installed)
+
+Mitigating Controls:
+
+Filter Network Traffic
+
+Limit Access to Resources Over the Network
+
+Restrict Web-Based Content (WAF at CDN)
+
+Bank Proxy for Internal Users
+
+CrowdStrike for Internal Users
+
+Trellix (McAfee Antivirus) for Internal Users
+
+TrendMicro Services on the vendor side (BM5 VMs monitoring, detecting, and responding to threats)
+
+
+Compensating Controls:
+
+Enhanced Logging and Alert Monitoring (SPLUNK)
+
+
+
+
+2. ADSF (989192): Authenticated Reflected XSS (Workflow New Job; fix in 24.4 Q4 2024)
+
+Mitigating Controls:
+
+Filter Network Traffic
+
+Limit Access to Resources Over the Network
+
+Restrict Web-Based Content (WAF at CDN)
+
+TrendMicro Services on vendor side
+
+
+Compensating Controls:
+
+Enhanced Logging and Alert Monitoring (SPLUNK)
+
+
+
+
+3. ADSF (989184): Server-Side Template Injection (Expression Language EL; fix in 24.4 Q4 2024)
+
+Mitigating Controls:
+
+Filter Network Traffic
+
+Limit Access to Resources Over the Network
+
+Restrict Web-Based Content (WAF at CDN)
+
+TrendMicro Services on vendor side
+
+
+Compensating Controls:
+
+Enhanced Logging and Alert Monitoring (SPLUNK)
+
+
+
+
+4. ADSF (989190): Server-Side Request Forgery (Blind SSRF via XXE Injection; fix in 24.4 Q4 2024)
+
+Mitigating Controls:
+
+Filter Network Traffic
+
+Limit Access to Resources Over the Network
+
+Restrict Web-Based Content (WAF at CDN)
+
+TrendMicro Services on vendor side
+
+
+Compensating Controls:
+
+Enhanced Logging and Alert Monitoring (SPLUNK)
+
+
+
+
+5. ADSF (989186): Client-Side Security Bypass (Workflow - Changing LOB Approver's Name; fix in Q4 2024)
+
+Mitigating Controls:
+
+Filter Network Traffic
+
+Limit Access to Resources Over the Network (fewer than 10 admins and fewer than 100 users)
+
+Restrict Web-Based Content
+
+Require FLU Approval for Workflow Changes
+
+TrendMicro Services on vendor side
+
+
+Compensating Controls:
+
+Enhanced Logging and Alert Monitoring (SPLUNK)
+
+
+
+
+
+Scope of Exception: All Priority 3 findings below remain open until the vendor provides fixes:
+
+ADSF (989182): Open URL Redirect (Fix in 23.4, pending installation/testing)
+
+ADSF (989192): Authenticated Reflected XSS (Workflow New Job; fix in 24.4 Q4 2024)
+
+ADSF (989184): Server-Side Template Injection (EL; fix in 24.4 Q4 2024)
+
+ADSF (989190): Server-Side Request Forgery (Blind SSRF via XXE; fix in 24.4 Q4 2024)
+
+ADSF (989186): Client-Side Security Bypass (Workflow LOB Approver change; fix in Q4 2024)
+
+
+Exception Requested:
+Approval to operate with these open P3 findings until Q1 2025, when vendor patches and subsequent internal testing are expected to be complete. All described mitigating and compensating controls will be maintained and improved as recommended.
+
